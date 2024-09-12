@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <style>
+        body {
+            position: relative;
+            min-height: 100vh;
+        }
+
+        footer {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <form action="/risultato" method="GET">
+        {% for domanda in domandeToHTML %}
+        <!-- First question with multiple choice -->
+        <h2>{{domanda.question_text}}</h2>
+
+            {% for risposta in risposteToHTML %}
+                {% if domanda.id == risposta.question_id %}
+                    <input type="radio" name={{domanda.id}} value={{risposta.answer_text}}>{{risposta.answer_text}}<br>
+                {% endif %}
+            {%endfor%}        
+        {%endfor%}
+
+        <br>
+
+        <button type="submit">Invia</button>
+
+    </form>
+
+    <!-- User's best score in the top right corner -->
+    <div style="position: absolute; top: 10px; right: 10px;">
+        <p>Punteggio più alto: {{risultatoPiuAlto}}</p>
+    </div>
+</body>
+<!-- Footer with information about the author -->
+<footer>
+    Giovanni Muraca
+</footer>
+</html>
